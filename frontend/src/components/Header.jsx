@@ -17,7 +17,7 @@ const Header = () => {
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="fixed top-3 left-0 w-full z-50 px-25 py-4 bg-black/80 backdrop-blur-md text-white flex items-center justify-center md:justify-between shadow-lg"
+      className="fixed top-0 left-0 w-full z-50 px-25 py-6 bg-black/80 backdrop-blur-md text-white flex items-center justify-center md:justify-between shadow-lg"
     >
       {/* Left: Name */}
       <motion.div
