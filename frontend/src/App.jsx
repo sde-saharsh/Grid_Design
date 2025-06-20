@@ -3,6 +3,7 @@ import { GridBackgroundDemo } from './components/GridBackgroundDemo'
 import Header from './components/Header' 
 import AboutMe from './components/AboutMe'
 import Skills from './components/Skills'
+import Footer from './components/Footer'
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <GridBackgroundDemo/>
       <AboutMe/>
       <Skills/>
+      <Footer/>
       
     </div>
   )
