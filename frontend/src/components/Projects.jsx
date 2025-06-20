@@ -4,36 +4,42 @@ import { FaBriefcase } from 'react-icons/fa';
 
 const projects = [
   {
-    company: 'Trendy Repo',
-    role: 'Full Stack Developer',
-    duration: 'Jan 2025 - Present',
+    company: 'IPO Web App & REST API for Mobile App Integration',
+    role: '',
+    duration: 'Jun 2025 - Present',
     points: [
-      'Developed a women-focused e-commerce platform using React and Node.js.',
-      'Implemented cart, auth, filters, and product management with MongoDB backend.',
-      'Styled with Tailwind CSS for a clean responsive UI.',
+      'Built a production-level IPO analytics web application using React.js for frontend and Node.js/Express for backend.',
+      'Designed and deployed RESTful APIs to deliver IPO data to the Bluestock mobile app and partner platforms.',
+      'Managed dynamic data using PostgreSQL, ensuring scalable backend integration with seamless data access.',
+      'Contributed to full-stack web development and collaborated in Agile sprints using GitHub for version control.',
+      'Played a key role in real-time API integration for a platform used by over 5 lakh users in the fintech space.',
     ],
-    tech: ['ReactJS', 'NodeJS', 'MongoDB', 'Tailwind CSS', 'ExpressJS', 'JWT'],
+    tech: ['ReactJS', 'NodeJS', 'Tailwind CSS', 'ExpressJS', 'JWT','PostgreSql','GitHub','Framer Motion'],
   },
   {
     company: 'Portfolio Website',
-    role: 'Frontend Developer',
-    duration: 'Nov 2024 - Jan 2025',
+    role: '',
+    duration: 'Jun 2025 ',
     points: [
-      'Built a ninja-themed personal portfolio with React and Framer Motion.',
-      'Added animated skill tabs, smooth scroll, and responsive layout.',
+      'Developed an interactive personal portfolio using React and Tailwind CSS.',
+      'Integrated smooth animations with Framer Motion to enhance UX.',
+      'Designed a responsive layout compatible across all screen sizes.',
+      'Deployed using Vercel Pages with real-time updates via GitHub integration.',
     ],
-    tech: ['ReactJS', 'Framer Motion', 'Tailwind CSS', 'GitHub', 'Netlify'],
+    tech: ['ReactJS', 'Framer Motion', 'Tailwind CSS', 'GitHub', 'Vercel'],
   },
   {
-    company: 'Expense Tracker',
-    role: 'Frontend Developer',
+    company: 'Food Recipe App',
+    role: 'Full Stack Web Application',
     duration: 'Aug 2024 - Oct 2024',
     points: [
-      'Created a real-time expense tracking app with category filters.',
-      'Stored data in LocalStorage for persistence.',
+      'Designed and developed a full-stack food recipe app with secure login and authentication.',
+      'Implemented CRUD functionality to add, edit, and delete personal recipes.',
+      'Used responsive design principles to ensure usability across all devices.',
+      'Integrated LocalStorage to preserve session-specific UI states and favorites.',
     ],
-    tech: ['HTML', 'CSS', 'JavaScript', 'LocalStorage'],
-  },
+    tech: ['React', 'Node.js', 'Express.js', 'MongoDB'],
+  },  
 ];
 
 const Projects = () => {

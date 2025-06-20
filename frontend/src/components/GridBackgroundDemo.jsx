@@ -3,6 +3,47 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaArrowDown } from 'react-icons/fa';
 
+import {
+  FaReact,
+  FaNodeJs,
+  FaDatabase,
+  FaCloud,
+  FaLaptopCode,
+} from "react-icons/fa";
+import { SiMongodb, SiFrontendmentor } from "react-icons/si";
+import { BiCodeAlt } from "react-icons/bi";
+
+const techStack = [
+  { icon: <FaCloud />, label: "Cloud" },
+  { icon: <SiFrontendmentor />, label: "Frontend" },
+  { icon: <BiCodeAlt />, label: "Full-Stack" },
+  { icon: <FaNodeJs />, label: "Node.js" },
+  { icon: <FaReact />, label: "React" },
+  { icon: <FaDatabase />, label: "Database" },
+  { icon: <FaLaptopCode />, label: "Backend" },
+  { icon: <FaCloud />, label: "Cloud" },
+  { icon: <SiFrontendmentor />, label: "Frontend" },
+  { icon: <BiCodeAlt />, label: "Full-Stack" },
+  { icon: <FaNodeJs />, label: "Node.js" },
+  { icon: <FaReact />, label: "React" },
+  { icon: <FaDatabase />, label: "Database" },
+  { icon: <FaLaptopCode />, label: "Backend" },
+  { icon: <FaCloud />, label: "Cloud" },
+  { icon: <SiFrontendmentor />, label: "Frontend" },
+  { icon: <BiCodeAlt />, label: "Full-Stack" },
+  { icon: <FaNodeJs />, label: "Node.js" },
+  { icon: <FaReact />, label: "React" },
+  { icon: <FaDatabase />, label: "Database" },
+  { icon: <FaLaptopCode />, label: "Backend" },
+  { icon: <FaCloud />, label: "Cloud" },
+  { icon: <SiFrontendmentor />, label: "Frontend" },
+  { icon: <BiCodeAlt />, label: "Full-Stack" },
+  { icon: <FaNodeJs />, label: "Node.js" },
+  { icon: <FaReact />, label: "React" },
+  { icon: <FaDatabase />, label: "Database" },
+  { icon: <FaLaptopCode />, label: "Backend" },
+];
+
 const lettersLine1 = "FULL-STACK".split("");
 const lettersLine2 = "DEVELOPER".split("");
 
@@ -76,13 +117,48 @@ export function GridBackgroundDemo() {
             Scroll down for more information...
           </p>
 
-          <div className="w-100 h-[1px] bg-[#a6a6a6] mx-auto my-4" />
+          <div className="md:w-100 h-[1px] bg-[#a6a6a6] mx-auto my-4" />
 
           <div className="w-15 h-15 sm:w-12 sm:h-12 mx-auto rounded-full bg-gray-500 flex items-center justify-center animate-bounce cursor-pointer mt-8">
             <FaArrowDown className="text-black text-lg" />
           </div>
+
+
         </div>
+
       </div>
+
+      <div className="absolute bottom-0 right-0 w-full bg-black py-4 mt-12">
+            {/* Top Row: Scroll Left */}
+            <div className="marquee-wrapper">
+              <div className="marquee-track">
+                {[...techStack, ...techStack].map((item, i) => (
+                  <div
+                    key={`top-${i}`}
+                    className="flex items-center gap-2 text-white text-base sm:text-lg px-4 min-w-max"
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom Row: Scroll Right */}
+            <div className="marquee-wrapper mt-4">
+              <div className="marquee-track reverse">
+                {[...techStack, ...techStack].map((item, i) => (
+                  <div
+                    key={`bottom-${i}`}
+                    className="flex items-center gap-2 text-white text-base sm:text-lg px-4 min-w-max"
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
     </div>
   );
 }

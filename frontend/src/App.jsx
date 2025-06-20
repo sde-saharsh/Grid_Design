@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Academic from './components/Academic';
 import Projects from './components/Projects';
 import LoadingScreen from './components/LoadingScreen';
+import CustomCursor from './components/CustomCursor';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -14,46 +15,49 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // Simulate loading time
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="bg-black text-white scroll-smooth">
+    <div className="bg-black text-white scroll-smooth relative overflow-x-hidden">
       {loading ? (
         <LoadingScreen />
       ) : (
         <>
-          <Header />
+          {/* 🖱️ Custom Cursor */}
+          <CustomCursor />
 
-          <div id="Home">
+          {/* 🧭 Header (make nav links interactive) */}
+          <div className="cursor-hover-target">
+            <Header />
+          </div>
+
+          {/* 🎯 Sections */}
+          <section id="Home">
             <GridBackgroundDemo />
-          </div>
+          </section>
 
-          <div id="AboutMe">
+          <section id="AboutMe" className="cursor-hover-target">
             <AboutMe />
-          </div>
+          </section>
 
-          <div id="Projects">
+          <section id="Projects" className="cursor-hover-target">
             <Projects />
-          </div>
+          </section>
 
-          <div id="Tools">
+          <section id="Tools" className="cursor-hover-target">
             <Skills />
-          </div>
+          </section>
 
-          <div id="Education">
+          <section id="Education" className="cursor-hover-target">
             <Academic />
-          </div>
+          </section>
 
-          <div id="Experience" className="p-20 text-center">
-            <p className="text-xl">Experience section coming soon...</p>
-          </div>
-
-          <div id="Contact">
+          <section id="Contact" className="cursor-hover-target">
             <Footer />
-          </div>
+          </section>
         </>
       )}
     </div>

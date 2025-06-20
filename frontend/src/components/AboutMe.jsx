@@ -24,7 +24,7 @@ const AboutMe = () => {
             className="aspect-square w-full max-w-[600px] sm:max-w-[600px] rounded-2xl overflow-hidden border border-[#2f2f2f] shadow-xl p-2"
           >
             <img
-              src="./Profile/Profile.jpeg"
+              src="./Profile/Profile2.jpeg"
               alt="About me"
               className="w-full h-full object-cover rounded-2xl"
             />

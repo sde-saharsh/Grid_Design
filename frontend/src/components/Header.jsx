@@ -19,7 +19,6 @@ const navLinks = [
   { icon: <FaFolder size={18} />, label: 'Projects', target: 'Projects' },
   { icon: <FaTools size={18} />, label: 'Tools', target: 'Tools' },
   { icon: <FaUniversity size={18} />, label: 'Education', target: 'Education' },
-  { icon: <FaBriefcase size={18} />, label: 'Experience', target: 'Experience' },
   { icon: <FaEnvelope size={18} />, label: 'Contact', target: 'Contact' },
 ];
 
@@ -36,7 +35,7 @@ const Header = () => {
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="fixed top-0 left-0 w-full z-50 px-6 py-6 bg-black/80 backdrop-blur-md text-white flex items-center justify-center md:justify-between shadow-lg"
+      className="fixed top-0 left-0 w-full z-50 px-30 py-6 bg-black/80 backdrop-blur-md text-white flex items-center justify-center md:justify-between shadow-lg"
     >
       {/* Left: Name */}
       <motion.div
@@ -80,6 +79,7 @@ const Header = () => {
         transition={{ delay: 0.6, duration: 0.5 }}
       />
     </motion.header>
+
   );
 };
 

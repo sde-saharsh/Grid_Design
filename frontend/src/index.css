@@ -1,2 +1,38 @@
 @import "tailwindcss";
 
+.marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 3rem;
+  white-space: nowrap;
+  animation: marquee 40s linear infinite; /* ⏱️ Adjusted speed */
+}
+
+.marquee-track.reverse {
+  animation: marqueeReverse 40s linear infinite; /* ⏱️ Adjusted speed */
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marqueeReverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+  
+  
