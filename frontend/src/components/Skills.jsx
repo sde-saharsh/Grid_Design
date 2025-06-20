@@ -35,7 +35,7 @@ const Skills = () => {
   const [activeTab, setActiveTab] = useState('Languages');
 
   return (
-    <div className="min-h-screen bg-black text-white px-6 py-12">
+    <div className=" bg-black text-white px-6 py-12">
 
       <div className="text-center">
         <p className="text-gray-400 uppercase tracking-wider mb-2">Skills</p>
