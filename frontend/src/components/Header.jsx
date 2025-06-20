@@ -8,16 +8,35 @@ import {
   FaBriefcase,
   FaEnvelope,
 } from 'react-icons/fa';
-
 import { motion } from 'framer-motion';
+import AboutMe from './AboutMe';
+import Skills from './Skills';
+
+// Nav Items List with target IDs
+const navLinks = [
+  { icon: <FaHome size={18} />, label: 'Home', target: 'Home' },
+  { icon: <FaUser size={18} />, label: 'About', target: 'AboutMe' },
+  { icon: <FaFolder size={18} />, label: 'Projects', target: 'Projects' },
+  { icon: <FaTools size={18} />, label: 'Tools', target: 'Tools' },
+  { icon: <FaUniversity size={18} />, label: 'Education', target: 'Education' },
+  { icon: <FaBriefcase size={18} />, label: 'Experience', target: 'Experience' },
+  { icon: <FaEnvelope size={18} />, label: 'Contact', target: 'Contact' },
+];
 
 const Header = () => {
+  const handleScroll = (target) => {
+    const section = document.getElementById(target);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <motion.header
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
-      className="fixed top-0 left-0 w-full z-50 px-25 py-6 bg-black/80 backdrop-blur-md text-white flex items-center justify-center md:justify-between shadow-lg"
+      className="fixed top-0 left-0 w-full z-50 px-6 py-6 bg-black/80 backdrop-blur-md text-white flex items-center justify-center md:justify-between shadow-lg"
     >
       {/* Left: Name */}
       <motion.div
@@ -39,7 +58,8 @@ const Header = () => {
         {navLinks.map((item, i) => (
           <motion.button
             key={item.label}
-            className="flex items-center gap-2 text-base font-medium hover:text-gray-300 transition"
+            onClick={() => handleScroll(item.target)}
+            className="flex items-center gap-2 text-base font-medium hover:text-gray-300 transition cursor-pointer"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 + i * 0.1, duration: 0.4 }}
@@ -62,16 +82,5 @@ const Header = () => {
     </motion.header>
   );
 };
-
-// Nav Items List
-const navLinks = [
-  { icon: <FaHome size={18} />, label: 'Home' },
-  { icon: <FaUser size={18} />, label: 'About' },
-  { icon: <FaFolder size={18} />, label: 'Projects' },
-  { icon: <FaTools size={18} />, label: 'Tools' },
-  { icon: <FaUniversity size={18} />, label: 'Education' },
-  { icon: <FaBriefcase size={18} />, label: 'Experience' },
-  { icon: <FaEnvelope size={18} />, label: 'Contact' },
-];
 
 export default Header;
