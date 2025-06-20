@@ -40,6 +40,7 @@ const Skills = () => {
       <div className="text-center">
         <p className="text-gray-400 uppercase tracking-wider mb-2">Skills</p>
         <h2 className="text-4xl font-semibold mb-4">Technical Skills</h2>
+        <div className="w-76 h-[2px] bg-[#a6a6a6] mx-auto my-4"></div>
         <p className="text-gray-400 max-w-xl mx-auto mb-8">
           The technologies and tools I use to bring ideas to life. My stack is constantly evolving as I explore new ways to create better solutions.
         </p>

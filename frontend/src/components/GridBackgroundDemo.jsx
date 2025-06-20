@@ -25,7 +25,7 @@ export function GridBackgroundDemo() {
         )}
       />
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black"></div>
-      <div className="flex flex-col items-center justify-center h-screen text-white relative overflow-hidden">
+        <div className="flex flex-col items-center justify-center h-screen text-white relative overflow-hidden">
         {/* Grid and spotlight background here... */}
 
         <div className="z-10 text-center">
@@ -71,6 +71,7 @@ export function GridBackgroundDemo() {
             <div className="border"></div>
             <img src="" alt="" />
         </div>
+
     </div>
 
 
