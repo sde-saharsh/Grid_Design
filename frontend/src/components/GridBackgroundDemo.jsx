@@ -70,7 +70,7 @@ export function GridBackgroundDemo() {
       />
 
       {/* Spotlight overlay */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black" />
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] dark:bg-black" />
 
       {/* Main content */}
       <div className="flex flex-col items-center justify-center h-full px-4 text-white relative z-10">

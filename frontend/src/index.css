@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+
+body{
+  background-color: black;
+}
 .marquee-wrapper {
   overflow: hidden;
   width: 100%;
