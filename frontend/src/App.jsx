@@ -26,15 +26,11 @@ const App = () => {
         <LoadingScreen />
       ) : (
         <>
-          {/* 🖱️ Custom Cursor */}
           <CustomCursor />
-
-          {/* 🧭 Header (make nav links interactive) */}
           <div className="cursor-hover-target">
             <Header />
           </div>
 
-          {/* 🎯 Sections */}
           <section id="Home">
             <GridBackgroundDemo />
           </section>
