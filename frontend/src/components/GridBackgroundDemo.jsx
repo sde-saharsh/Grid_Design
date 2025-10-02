@@ -58,7 +58,7 @@ const letterAnimation = {
 
 export function GridBackgroundDemo() {
   return (
-    <div className="relative flex h-screen w-full items-center justify-center bg-white dark:bg-black overflow-hidden">
+    <div className="relative flex h-screen w-full items-center justify-center bg-black overflow-hidden">
       {/* Grid background */}
       <div
         className={cn(
