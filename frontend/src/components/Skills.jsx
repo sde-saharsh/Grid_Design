@@ -25,7 +25,7 @@ const skillsData = {
   'Tools & Platforms': [
     { name: 'Git', icon: '/logo/git.png' },
     { name: 'GitHub', icon: '/logo/github.png' },
-    { name: 'Docker', icon: '/logo/linux.png' },
+    { name: 'Docker', icon: '/logo/docker.png' },
     { name: 'Postman', icon: '/logo/postman.png' },
     { name: 'VS Code', icon: '/logo/vscode.png' },
     { name: 'Linux', icon: '/logo/linux.png' },
