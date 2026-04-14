@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ThemeProvider } from './context/ThemeContext';
+import SmoothScroll from './components/SmoothScroll';
 import { GridBackgroundDemo } from './components/GridBackgroundDemo';
 import Header from './components/Header';
 import AboutMe from './components/AboutMe';
@@ -16,67 +18,72 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Slightly longer loading to let the greetings play out nicely
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2200);
+    }, 3500);
 
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className="bg-black text-white scroll-smooth relative overflow-x-hidden">
-      <AnimatePresence mode="wait">
-        {loading ? (
-          <motion.div
-            key="loader"
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.5 }}
-          >
-            <LoadingScreen />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-          >
-            <CustomCursor />
-            <ScrollProgress />
-            <BackToTop />
-            <Header />
+    <ThemeProvider>
+      <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] scroll-smooth relative overflow-x-hidden theme-transition">
+        <AnimatePresence mode="wait">
+          {loading ? (
+            <motion.div
+              key="loader"
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.6 }}
+            >
+              <LoadingScreen />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="content"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+              <SmoothScroll>
+                <CustomCursor />
+                <ScrollProgress />
+                <BackToTop />
+                <Header />
 
-            <section id="Home">
-              <GridBackgroundDemo />
-            </section>
+                <section id="Home">
+                  <GridBackgroundDemo />
+                </section>
 
-            <section id="AboutMe">
-              <AboutMe />
-            </section>
+                <section id="AboutMe">
+                  <AboutMe />
+                </section>
 
-            <section id="Projects">
-              <Projects />
-            </section>
+                <section id="Projects">
+                  <Projects />
+                </section>
 
-            <section id="Tools">
-              <Skills />
-            </section>
+                <section id="Tools">
+                  <Skills />
+                </section>
 
-            <section id="CodingProfiles">
-              <CodingProfiles />
-            </section>
+                <section id="CodingProfiles">
+                  <CodingProfiles />
+                </section>
 
-            <section id="Education">
-              <Academic />
-            </section>
+                <section id="Education">
+                  <Academic />
+                </section>
 
-            <section id="Contact">
-              <Footer />
-            </section>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+                <section id="Contact">
+                  <Footer />
+                </section>
+              </SmoothScroll>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </ThemeProvider>
   );
 };
 

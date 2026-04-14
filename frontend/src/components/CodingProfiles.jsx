@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 // Animated counter for ratings
 const AnimatedNumber = ({ target, duration = 1.5 }) => {
@@ -147,8 +148,9 @@ const achievements = [
 ];
 
 const CodingProfiles = () => {
+  const { isDark } = useTheme();
   return (
-    <section className="bg-black text-white py-20 px-4 md:px-10 relative overflow-hidden">
+    <section className="py-20 px-4 md:px-10 relative overflow-hidden theme-transition" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
       {/* Background decoration */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-500/[0.02] to-purple-500/[0.02] rounded-full blur-[100px]" />
 

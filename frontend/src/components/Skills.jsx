@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 const skillsData = {
   Languages: [
@@ -69,9 +70,10 @@ const SkillsGlow = ({ children }) => {
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState('Languages');
+  const { isDark } = useTheme();
 
   return (
-    <div className="bg-black text-white px-6 py-20">
+    <div className="px-6 py-20 theme-transition" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
       <motion.div
         className="text-center"
         initial={{ opacity: 0, y: 30 }}

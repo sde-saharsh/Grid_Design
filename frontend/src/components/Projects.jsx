@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaBriefcase, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import { useTheme } from '../context/ThemeContext';
 
 const projects = [
   {
@@ -51,9 +52,9 @@ const projects = [
 ];
 
 const Projects = () => {
+  const { isDark } = useTheme();
   return (
-    <section className="bg-black text-white py-20 px-4 md:px-10 relative overflow-hidden">
-      {/* Header */}
+    <section className="py-20 px-4 md:px-10 relative overflow-hidden theme-transition" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>      {/* Header */}
       <motion.div
         className="text-center mb-16"
         initial={{ opacity: 0, y: 30 }}

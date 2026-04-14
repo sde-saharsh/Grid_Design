@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaEnvelope, FaLinkedin, FaTwitter, FaHeart, FaGithub } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 const contactLinks = [
   {
@@ -30,9 +31,11 @@ const contactLinks = [
 ];
 
 const Footer = () => {
+  const { isDark } = useTheme();
   return (
     <motion.div
-      className="bg-black text-white py-20 px-6 text-center relative overflow-hidden"
+      className="py-20 px-6 text-center relative overflow-hidden theme-transition"
+      style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}

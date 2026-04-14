@@ -2,6 +2,7 @@ import React, { useState, useCallback, useRef } from 'react';
 import { FaUniversity } from 'react-icons/fa';
 import { cn } from "@/lib/utils";
 import { motion, useInView } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 function throttle(func, delay) {
   let lastCall = 0;
@@ -43,6 +44,7 @@ const Counter = ({ target, suffix = '' }) => {
 const Academic = () => {
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [glare, setGlare] = useState({ x: 50, y: 50 });
+  const { isDark } = useTheme();
 
   const onMouseMove = useCallback(
     throttle((e) => {
@@ -66,17 +68,19 @@ const Academic = () => {
   };
 
   return (
-    <section className="relative min-h-screen bg-black text-white flex flex-col items-center justify-center px-4 sm:px-6 py-20 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 py-20 overflow-hidden theme-transition" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
       
       {/* Grid Background */}
       <div
         className={cn(
           "absolute inset-0 z-0",
           "[background-size:80px_80px]",
-          "[background-image:linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)]",
+          isDark
+            ? "[background-image:linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)]"
+            : "[background-image:linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear_gradient(to_bottom,#e5e5e5_1px,transparent_1px)]",
         )}
       />
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-0" />
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-0" style={{ backgroundColor: 'var(--bg-primary)' }} />
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl w-full text-center">

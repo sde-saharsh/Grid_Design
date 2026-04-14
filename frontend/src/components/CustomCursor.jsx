@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 const CustomCursor = () => {
   const [hovered, setHovered] = useState(false);
@@ -7,6 +8,7 @@ const CustomCursor = () => {
   const [visible, setVisible] = useState(false);
   const [trails, setTrails] = useState([]);
   const trailId = useRef(0);
+  const { isDark } = useTheme();
 
   // Separate motion values for inner dot and outer ring
   const mouseX = useMotionValue(0);
@@ -108,7 +110,7 @@ const CustomCursor = () => {
           translateX: -ringSize / 2,
           translateY: -ringSize / 2,
           borderRadius: '9999px',
-          border: `1.5px solid ${hovered ? 'rgba(139, 92, 246, 0.6)' : 'rgba(255, 255, 255, 0.5)'}`,
+          border: `1.5px solid ${hovered ? 'rgba(139, 92, 246, 0.6)' : isDark ? 'rgba(255, 255, 255, 0.5)' : 'rgba(0, 0, 0, 0.4)'}`,
           backgroundColor: hovered ? 'rgba(139, 92, 246, 0.08)' : 'transparent',
           backdropFilter: hovered ? 'blur(2px)' : 'none',
           opacity: visible ? 1 : 0,
@@ -128,7 +130,7 @@ const CustomCursor = () => {
           translateX: -dotSize / 2,
           translateY: -dotSize / 2,
           borderRadius: '9999px',
-          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          backgroundColor: isDark ? 'rgba(255, 255, 255, 0.9)' : 'rgba(0, 0, 0, 0.7)',
           opacity: visible ? 1 : 0,
           transition: 'width 0.2s, height 0.2s, opacity 0.2s',
         }}

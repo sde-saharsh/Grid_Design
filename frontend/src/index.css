@@ -1,5 +1,57 @@
 @import "tailwindcss";
 
+/* ─── Theme Variables ─── */
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-card: rgba(255, 255, 255, 0.02);
+  --bg-card-hover: rgba(255, 255, 255, 0.04);
+  --border-color: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(255, 255, 255, 0.15);
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --text-dim: #4b5563;
+  --accent-glow: rgba(139, 92, 246, 0.3);
+  --nav-bg: rgba(0, 0, 0, 0.8);
+  --nav-pill: rgba(255, 255, 255, 0.05);
+  --selection-bg: rgba(139, 92, 246, 0.3);
+  --grid-line: #1a1a1a;
+  --spotlight-bg: black;
+  --scrollbar-track: #000;
+  --scrollbar-thumb: #333;
+  --scrollbar-thumb-hover: #555;
+  --tag-bg: rgba(255, 255, 255, 0.05);
+  --tag-border: rgba(255, 255, 255, 0.1);
+  --invert: 0;
+}
+
+html.light {
+  --bg-primary: #fafafa;
+  --bg-secondary: #f0f0f0;
+  --bg-card: rgba(0, 0, 0, 0.03);
+  --bg-card-hover: rgba(0, 0, 0, 0.06);
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.2);
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --text-muted: #777777;
+  --text-dim: #999999;
+  --accent-glow: rgba(139, 92, 246, 0.15);
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --nav-pill: rgba(0, 0, 0, 0.06);
+  --selection-bg: rgba(139, 92, 246, 0.2);
+  --grid-line: #e5e5e5;
+  --spotlight-bg: #fafafa;
+  --scrollbar-track: #f0f0f0;
+  --scrollbar-thumb: #ccc;
+  --scrollbar-thumb-hover: #aaa;
+  --tag-bg: rgba(0, 0, 0, 0.05);
+  --tag-border: rgba(0, 0, 0, 0.1);
+  --invert: 1;
+}
+
+/* ─── Cursor ─── */
 * {
   cursor: none !important;
 }
@@ -10,69 +62,68 @@
   }
 }
 
+/* ─── Lenis smooth scroll ─── */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ─── Base ─── */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: black;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Scrollbar styling */
+/* ─── Scrollbar ─── */
 ::-webkit-scrollbar {
   width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #000;
+  background: var(--scrollbar-track);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #333, #555);
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #555, #777);
+  background: var(--scrollbar-thumb-hover);
 }
 
-/* Selection styling */
+/* ─── Selection ─── */
 ::selection {
-  background-color: rgba(139, 92, 246, 0.3);
-  color: white;
+  background-color: var(--selection-bg);
+  color: var(--text-primary);
 }
 
-/* Smooth section transitions */
+/* ─── GPU acceleration hints ─── */
 section {
-  transition: opacity 0.5s ease;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
-/* Animated gradient text helper */
-.gradient-text-animate {
-  background-size: 200% auto;
-  animation: gradientShift 3s ease infinite;
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% center; }
-  50% { background-position: 100% center; }
-  100% { background-position: 0% center; }
-}
-
-/* Glow pulse animation */
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.1); }
-  50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
-}
-
-.glow-pulse {
-  animation: glowPulse 2s ease-in-out infinite;
-}
-
-/* Marquee */
+/* ─── Marquee ─── */
 .marquee-wrapper {
   overflow: hidden;
   width: 100%;
@@ -83,6 +134,7 @@ section {
   gap: 3rem;
   white-space: nowrap;
   animation: marquee 30s linear infinite;
+  will-change: transform;
 }
 
 .marquee-track:hover {
@@ -98,29 +150,28 @@ section {
 }
 
 @keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
 }
 
 @keyframes marqueeReverse {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
 }
 
-/* Floating animation for generic use */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+/* ─── Utility animations ─── */
+@keyframes gradientShift {
+  0% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+  100% { background-position: 0% center; }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+.gradient-text-animate {
+  background-size: 200% auto;
+  animation: gradientShift 3s ease infinite;
+}
+
+/* ─── Theme transition helper ─── */
+.theme-transition {
+  transition: background-color 0.5s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }

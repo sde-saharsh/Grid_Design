@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { FaArrowDown, FaDownload } from 'react-icons/fa';
+import { FaArrowDown } from 'react-icons/fa';
+import { useTheme } from '../context/ThemeContext';
 
 import {
   FaReact,
@@ -42,7 +43,8 @@ const letterAnimation = {
 
 // Floating Particles Component
 const FloatingParticles = () => {
-  const particles = Array.from({ length: 30 }, (_, i) => ({
+  const { isDark } = useTheme();
+  const particles = Array.from({ length: 15 }, (_, i) => ({
     id: i,
     size: Math.random() * 3 + 1,
     x: Math.random() * 100,
@@ -56,7 +58,7 @@ const FloatingParticles = () => {
       {particles.map((p) => (
         <motion.div
           key={p.id}
-          className="absolute rounded-full bg-white/[0.08]"
+          className={`absolute rounded-full ${isDark ? 'bg-white/[0.08]' : 'bg-black/[0.06]'}`}
           style={{
             width: p.size,
             height: p.size,
@@ -152,14 +154,17 @@ const MouseGlow = () => {
 };
 
 export function GridBackgroundDemo() {
+  const { isDark } = useTheme();
   return (
-    <div className="relative flex h-screen w-full items-center justify-center bg-black overflow-hidden">
+    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden theme-transition" style={{ backgroundColor: 'var(--bg-primary)' }}>
       {/* Grid background */}
       <div
         className={cn(
           "absolute inset-0",
           "[background-size:80px_80px]",
-          "[background-image:linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)]",
+          isDark
+            ? "[background-image:linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)]"
+            : "[background-image:linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear-gradient(to_bottom,#e5e5e5_1px,transparent_1px)]",
         )}
       />
 
@@ -170,7 +175,7 @@ export function GridBackgroundDemo() {
       <MouseGlow />
 
       {/* Spotlight overlay */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-black z-[3]" />
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] z-[3]" style={{ backgroundColor: 'var(--bg-primary)' }} />
 
       {/* Animated gradient orbs */}
       <motion.div
@@ -195,13 +200,13 @@ export function GridBackgroundDemo() {
       />
 
       {/* Main content */}
-      <div className="flex flex-col items-center justify-center h-full px-4 text-white relative z-10">
+      <div className="flex flex-col items-center justify-center h-full px-4 relative z-10" style={{ color: 'var(--text-primary)' }}>
         {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-sm md:text-base tracking-[0.3em] uppercase text-gray-400 mb-6 font-light"
+          className="text-sm md:text-base tracking-[0.3em] uppercase mb-6 font-light" style={{ color: 'var(--text-muted)' }}
         >
           Welcome to my portfolio
         </motion.p>
@@ -211,7 +216,7 @@ export function GridBackgroundDemo() {
           <motion.div
             initial="hidden"
             animate="visible"
-            className="flex justify-center flex-wrap text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-500"
+            className={`flex justify-center flex-wrap text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-transparent bg-clip-text ${isDark ? 'bg-gradient-to-b from-white via-neutral-200 to-neutral-500' : 'bg-gradient-to-b from-black via-neutral-700 to-neutral-400'}`}
           >
             {lettersLine1.map((char, index) => (
               <motion.span
@@ -228,7 +233,7 @@ export function GridBackgroundDemo() {
           <motion.div
             initial="hidden"
             animate="visible"
-            className="mt-2 md:mt-4 flex justify-center flex-wrap text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-200 to-neutral-500"
+            className={`mt-2 md:mt-4 flex justify-center flex-wrap text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-transparent bg-clip-text ${isDark ? 'bg-gradient-to-b from-white via-neutral-200 to-neutral-500' : 'bg-gradient-to-b from-black via-neutral-700 to-neutral-400'}`}
           >
             {lettersLine2.map((char, index) => (
               <motion.span
@@ -261,9 +266,11 @@ export function GridBackgroundDemo() {
           className="flex items-center gap-4 mt-8"
         >
           <motion.button
-            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.15)" }}
+            whileHover={{ scale: 1.05, boxShadow: isDark ? "0 0 30px rgba(255,255,255,0.15)" : "0 0 30px rgba(0,0,0,0.1)" }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 py-2.5 bg-white text-black rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-300"
+            className={`px-6 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-300 ${
+              isDark ? 'bg-white text-black' : 'bg-black text-white'
+            }`}
             onClick={() => {
               const contactSection = document.getElementById('Contact');
               if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
@@ -272,9 +279,13 @@ export function GridBackgroundDemo() {
             Get in Touch
           </motion.button>
           <motion.button
-            whileHover={{ scale: 1.05, borderColor: "rgba(255,255,255,0.4)" }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 py-2.5 border border-white/20 text-white rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-white/5 transition-all duration-300"
+            className={`px-6 py-2.5 border rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-300 ${
+              isDark
+                ? 'border-white/20 text-white hover:bg-white/5'
+                : 'border-black/20 text-black hover:bg-black/5'
+            }`}
             onClick={() => {
               const projectsSection = document.getElementById('Projects');
               if (projectsSection) projectsSection.scrollIntoView({ behavior: 'smooth' });
@@ -312,7 +323,7 @@ export function GridBackgroundDemo() {
       </div>
 
       {/* Marquee */}
-      <div className="absolute bottom-0 right-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent py-6 z-10">
+      <div className={`absolute bottom-0 right-0 w-full py-6 z-10 ${isDark ? 'bg-gradient-to-t from-black via-black/80 to-transparent' : 'bg-gradient-to-t from-[#fafafa] via-[#fafafa]/80 to-transparent'}`}>
         {/* Top Row */}
         <div className="marquee-wrapper">
           <div className="marquee-track">

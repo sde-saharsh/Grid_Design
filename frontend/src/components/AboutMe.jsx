@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import React, { useRef, useEffect, useState } from "react";
-import { FaLinkedin, FaGithub, FaCode, FaBookOpen, FaChessKnight, FaEnvelope, FaPhone, FaDownload } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaCode, FaBookOpen, FaChessKnight, FaEnvelope, FaPhone } from "react-icons/fa";
+import { useTheme } from '../context/ThemeContext';
 
 // Animated Counter Component
 const AnimatedCounter = ({ target, suffix = '', duration = 2 }) => {
@@ -77,10 +78,12 @@ const socialLinks = [
 ];
 
 const AboutMe = () => {
+  const { isDark } = useTheme();
   return (
     <section
       id="about"
-      className="min-h-screen flex flex-col items-center justify-center px-6 md:px-20 bg-black text-white scroll-mt-20 py-20"
+      className="min-h-screen flex flex-col items-center justify-center px-6 md:px-20 scroll-mt-20 py-20 theme-transition"
+      style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}
     >
       <motion.div
         initial={{ opacity: 0, y: 40 }}
@@ -163,9 +166,9 @@ const AboutMe = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
-            className="text-sm md:text-base text-gray-400 leading-relaxed max-w-lg"
+            className="text-sm md:text-base leading-relaxed max-w-lg" style={{ color: 'var(--text-secondary)' }}
           >
-            I'm a passionate full-stack developer & competitive programmer pursuing B.Tech in CSE at Walchand College of Engineering, Sangli. I've solved <span className="text-white font-medium">1000+ DSA problems</span> across platforms, built production-level apps with the MERN stack, and love turning complex problems into elegant solutions. Let's build something cool together! 🚀
+            I'm a passionate full-stack developer & competitive programmer pursuing B.Tech in CSE at Walchand College of Engineering, Sangli. I've solved <span className="font-medium" style={{ color: 'var(--text-primary)' }}>1000+ DSA problems</span> across platforms, built production-level apps with the MERN stack, and love turning complex problems into elegant solutions. Let's build something cool together! 🚀
           </motion.p>
 
           {/* Social Buttons — unified monochrome style */}
