@@ -1,5 +1,66 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
+
+// Animated counter for ratings
+const AnimatedNumber = ({ target, duration = 1.5 }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!isInView) return;
+    const num = parseInt(target);
+    if (isNaN(num)) return;
+    let start = 0;
+    const increment = num / (duration * 60);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= num) {
+        setCount(num);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 1000 / 60);
+    return () => clearInterval(timer);
+  }, [isInView, target, duration]);
+
+  return <span ref={ref}>{count}</span>;
+};
+
+// Progress Ring SVG
+const ProgressRing = ({ percentage, color, size = 60, strokeWidth = 4 }) => {
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <svg ref={ref} width={size} height={size} className="transform -rotate-90">
+      <circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="transparent"
+        stroke="rgba(255,255,255,0.05)"
+        strokeWidth={strokeWidth}
+      />
+      <motion.circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        fill="transparent"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeDasharray={circumference}
+        initial={{ strokeDashoffset: circumference }}
+        animate={isInView ? { strokeDashoffset: circumference - (percentage / 100) * circumference } : {}}
+        transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
+      />
+    </svg>
+  );
+};
 
 const profiles = [
   {
@@ -7,6 +68,7 @@ const profiles = [
     username: 'SAHARSH_14',
     url: 'https://leetcode.com/u/SAHARSH_14/',
     color: '#FFA116',
+    percentile: 87,
     stats: {
       rating: '1698',
       problems: '680+',
@@ -24,6 +86,7 @@ const profiles = [
     username: 'saharshx',
     url: 'https://codeforces.com/profile/saharshx',
     color: '#1F8ACB',
+    percentile: 45,
     stats: {
       rating: '1069',
       problems: '165+',
@@ -41,6 +104,7 @@ const profiles = [
     username: 'sde_saharsh',
     url: 'https://www.codechef.com/users/sde_saharsh',
     color: '#5B4638',
+    percentile: 70,
     stats: {
       rating: '1627',
       problems: '',
@@ -58,6 +122,7 @@ const profiles = [
     username: 'sde_saharsh',
     url: 'https://www.geeksforgeeks.org/user/sde_saharsh/',
     color: '#2F8D46',
+    percentile: 60,
     stats: {
       rating: '',
       problems: '150+',
@@ -73,35 +138,57 @@ const profiles = [
 ];
 
 const achievements = [
-  { text: '1000+ DSA Problems solved across LeetCode, Codeforces, CodeChef, and GFG', highlight: '1000+' },
-  { text: 'Top 13.47% on LeetCode — Contest rating of 1698 over 32 rated contests', highlight: 'Top 13.47%' },
-  { text: 'Ranked 395 globally in CodeChef Starters 227 and 734 globally in Starters 232', highlight: '395 globally' },
-  { text: 'Winner, Walchand Imagine Cup — Annual tech competition by MLSC', highlight: 'Winner' },
-  { text: 'GFG Campus Ambassador — Selected as GeeksforGeeks Campus Ambassador (2026)', highlight: 'Ambassador' },
-  { text: 'Finance Lead, MLSC — Managed finances for Microsoft Learn Students\' Club at WCE', highlight: 'Finance Lead' },
+  { text: '1000+ DSA Problems solved across LeetCode, Codeforces, CodeChef, and GFG', icon: '🏆' },
+  { text: 'Top 13.47% on LeetCode — Contest rating of 1698 over 32 rated contests', icon: '🥇' },
+  { text: 'Ranked 395 globally in CodeChef Starters 227 and 734 globally in Starters 232', icon: '🌍' },
+  { text: 'Winner, Walchand Imagine Cup — Annual tech competition by MLSC', icon: '🏅' },
+  { text: 'GFG Campus Ambassador — Selected as GeeksforGeeks Campus Ambassador (2026)', icon: '🎓' },
+  { text: 'Finance Lead, MLSC — Managed finances for Microsoft Learn Students\' Club at WCE', icon: '💼' },
 ];
 
 const CodingProfiles = () => {
   return (
     <section className="bg-black text-white py-20 px-4 md:px-10 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-500/[0.02] to-purple-500/[0.02] rounded-full blur-[100px]" />
+
       {/* Header */}
       <motion.div
-        className="text-center mb-16"
+        className="text-center mb-16 relative z-10"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
         <p className="text-gray-500 uppercase tracking-[0.2em] text-xs mb-3">Competitive Programming</p>
-        <h2 className="text-3xl md:text-4xl font-semibold mb-4">Coding Profiles</h2>
+        <h2 className="text-3xl md:text-4xl font-semibold mb-4">
+          Coding{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+            Profiles
+          </span>
+        </h2>
         <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-gray-500 to-transparent mx-auto my-4" />
         <p className="text-gray-400 max-w-xl mx-auto text-sm">
           My competitive programming journey across various platforms.
         </p>
       </motion.div>
 
+      {/* Total Problems Solved Counter */}
+      <motion.div
+        className="text-center mb-12 relative z-10"
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <p className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-red-400">
+          <AnimatedNumber target="1000" duration={2} />+
+        </p>
+        <p className="text-gray-500 text-sm mt-2 uppercase tracking-widest">Total Problems Solved</p>
+      </motion.div>
+
       {/* Profile Cards Grid */}
-      <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16 relative z-10">
         {profiles.map((profile, idx) => (
           <motion.a
             key={profile.platform}
@@ -113,67 +200,91 @@ const CodingProfiles = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: idx * 0.1 }}
             whileHover={{
-              scale: 1.03,
+              scale: 1.05,
               borderColor: profile.color,
-              boxShadow: `0 0 30px ${profile.color}15`,
+              boxShadow: `0 0 40px ${profile.color}20`,
             }}
-            className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-5 hover:bg-white/[0.04] transition-all duration-300 block group"
+            className="bg-white/[0.02] border border-white/[0.06] rounded-xl p-5 hover:bg-white/[0.04] transition-all duration-300 block group relative overflow-hidden"
           >
-            {/* Platform header */}
-            <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center"
-                style={{ backgroundColor: `${profile.color}15`, color: profile.color }}
-              >
-                {profile.icon}
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold">{profile.platform}</h3>
-                <p className="text-xs text-gray-500">@{profile.username}</p>
-              </div>
-            </div>
+            {/* Hover gradient overlay */}
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{
+                background: `linear-gradient(135deg, ${profile.color}08 0%, transparent 100%)`,
+              }}
+            />
 
-            {/* Stats */}
-            <div className="space-y-3">
-              {profile.stats.rating && (
-                <div>
-                  <p className="text-xs text-gray-500 uppercase tracking-wider">Rating</p>
-                  <p className="text-2xl font-bold" style={{ color: profile.color }}>
-                    {profile.stats.rating}
-                  </p>
-                </div>
-              )}
-
-              <div className="flex items-center justify-between">
-                {profile.stats.problems && (
-                  <div>
-                    <p className="text-xs text-gray-500">Problems</p>
-                    <p className="text-sm font-semibold text-white">{profile.stats.problems}</p>
+            <div className="relative z-10">
+              {/* Platform header */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-10 h-10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+                    style={{ backgroundColor: `${profile.color}15`, color: profile.color }}
+                  >
+                    {profile.icon}
                   </div>
-                )}
-                {profile.stats.badge && (
-                  <div className="text-right">
-                    <p className="text-xs text-gray-500">Badge</p>
-                    <p className="text-xs font-medium px-2 py-0.5 rounded-full border"
-                      style={{ borderColor: `${profile.color}40`, color: profile.color }}>
-                      {profile.stats.badge}
+                  <div>
+                    <h3 className="text-sm font-semibold">{profile.platform}</h3>
+                    <p className="text-xs text-gray-500">@{profile.username}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress Ring + Rating */}
+              {profile.stats.rating && (
+                <div className="flex items-center gap-3 mb-3">
+                  <ProgressRing percentage={profile.percentile} color={profile.color} size={50} strokeWidth={3} />
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase tracking-wider">Rating</p>
+                    <p className="text-2xl font-bold" style={{ color: profile.color }}>
+                      <AnimatedNumber target={profile.stats.rating} />
                     </p>
                   </div>
+                </div>
+              )}
+
+              {/* Stats */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  {profile.stats.problems && (
+                    <div>
+                      <p className="text-xs text-gray-500">Problems</p>
+                      <p className="text-sm font-semibold text-white">{profile.stats.problems}</p>
+                    </div>
+                  )}
+                  {profile.stats.badge && (
+                    <div className="text-right">
+                      <motion.p
+                        className="text-xs font-medium px-2 py-0.5 rounded-full border"
+                        whileHover={{ scale: 1.1 }}
+                        style={{ borderColor: `${profile.color}40`, color: profile.color }}
+                      >
+                        {profile.stats.badge}
+                      </motion.p>
+                    </div>
+                  )}
+                </div>
+
+                {profile.stats.contests && (
+                  <div>
+                    <p className="text-xs text-gray-500">Contests</p>
+                    <p className="text-sm font-semibold text-white">{profile.stats.contests}</p>
+                  </div>
                 )}
               </div>
 
-              {profile.stats.contests && (
-                <div>
-                  <p className="text-xs text-gray-500">Contests</p>
-                  <p className="text-sm font-semibold text-white">{profile.stats.contests}</p>
-                </div>
-              )}
-            </div>
-
-            {/* Hover arrow */}
-            <div className="mt-4 flex items-center gap-1 text-xs text-gray-600 group-hover:text-gray-300 transition-colors">
-              <span>View Profile</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
+              {/* Hover arrow */}
+              <div className="mt-4 flex items-center gap-1 text-xs text-gray-600 group-hover:text-gray-300 transition-colors">
+                <span>View Profile</span>
+                <motion.span
+                  className="inline-block"
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  →
+                </motion.span>
+              </div>
             </div>
           </motion.a>
         ))}
@@ -181,13 +292,18 @@ const CodingProfiles = () => {
 
       {/* Achievements Section */}
       <motion.div
-        className="max-w-4xl mx-auto"
+        className="max-w-4xl mx-auto relative z-10"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        <h3 className="text-xl font-semibold text-center mb-8">Achievements & Extracurricular</h3>
+        <h3 className="text-xl font-semibold text-center mb-8">
+          Achievements &{' '}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">
+            Extracurricular
+          </span>
+        </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {achievements.map((item, idx) => (
             <motion.div
@@ -195,10 +311,15 @@ const CodingProfiles = () => {
               initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              className="bg-white/[0.02] border border-white/[0.06] rounded-lg px-4 py-3 flex items-start gap-3 hover:bg-white/[0.04] transition-colors duration-300"
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              whileHover={{
+                scale: 1.02,
+                borderColor: "rgba(255,255,255,0.15)",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+              }}
+              className="bg-white/[0.02] border border-white/[0.06] rounded-lg px-4 py-3.5 flex items-start gap-3 hover:bg-white/[0.04] transition-all duration-300"
             >
-              <span className="text-amber-400 mt-0.5 text-sm">✦</span>
+              <span className="text-lg mt-0.5">{item.icon}</span>
               <p className="text-sm text-gray-400">{item.text}</p>
             </motion.div>
           ))}

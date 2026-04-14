@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { FaArrowDown } from 'react-icons/fa';
+import { FaArrowDown, FaDownload } from 'react-icons/fa';
 
 import {
   FaReact,
@@ -29,6 +29,8 @@ const techStack = [
 const lettersLine1 = "FULL-STACK".split("");
 const lettersLine2 = "DEVELOPER".split("");
 
+const roles = ["Full-Stack Developer", "Competitive Programmer", "MERN Stack Builder", "Problem Solver"];
+
 const letterAnimation = {
   hidden: { opacity: 0, y: 30 },
   visible: (i) => ({
@@ -36,6 +38,117 @@ const letterAnimation = {
     y: 0,
     transition: { delay: i * 0.04, duration: 0.4, ease: "easeOut" },
   }),
+};
+
+// Floating Particles Component
+const FloatingParticles = () => {
+  const particles = Array.from({ length: 30 }, (_, i) => ({
+    id: i,
+    size: Math.random() * 3 + 1,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    duration: Math.random() * 20 + 15,
+    delay: Math.random() * 5,
+  }));
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
+      {particles.map((p) => (
+        <motion.div
+          key={p.id}
+          className="absolute rounded-full bg-white/[0.08]"
+          style={{
+            width: p.size,
+            height: p.size,
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+          }}
+          animate={{
+            y: [0, -30, 0],
+            x: [0, Math.random() * 20 - 10, 0],
+            opacity: [0, 0.6, 0],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Typewriter Component
+const TypewriterText = ({ words }) => {
+  const [currentWord, setCurrentWord] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const word = words[currentWord];
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setCurrentText(word.substring(0, currentText.length + 1));
+        if (currentText === word) {
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        setCurrentText(word.substring(0, currentText.length - 1));
+        if (currentText === '') {
+          setIsDeleting(false);
+          setCurrentWord((prev) => (prev + 1) % words.length);
+        }
+      }
+    }, isDeleting ? 40 : 80);
+
+    return () => clearTimeout(timeout);
+  }, [currentText, isDeleting, currentWord, words]);
+
+  return (
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
+      {currentText}
+      <motion.span
+        animate={{ opacity: [1, 0] }}
+        transition={{ duration: 0.6, repeat: Infinity }}
+        className="text-white/60"
+      >
+        |
+      </motion.span>
+    </span>
+  );
+};
+
+// Mouse glow effect
+const MouseGlow = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+      }
+    };
+    const el = containerRef.current?.parentElement;
+    el?.addEventListener('mousemove', handleMouseMove);
+    return () => el?.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <div ref={containerRef} className="absolute inset-0 pointer-events-none z-[2]">
+      <div
+        className="absolute w-[500px] h-[500px] rounded-full transition-all duration-300 ease-out"
+        style={{
+          left: mousePos.x - 250,
+          top: mousePos.y - 250,
+          background: 'radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%)',
+        }}
+      />
+    </div>
+  );
 };
 
 export function GridBackgroundDemo() {
@@ -50,11 +163,36 @@ export function GridBackgroundDemo() {
         )}
       />
 
-      {/* Spotlight overlay */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-black" />
+      {/* Floating Particles */}
+      <FloatingParticles />
 
-      {/* Subtle glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-white/[0.03] to-transparent rounded-full blur-3xl" />
+      {/* Mouse Glow */}
+      <MouseGlow />
+
+      {/* Spotlight overlay */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-black z-[3]" />
+
+      {/* Animated gradient orbs */}
+      <motion.div
+        className="absolute w-[400px] h-[400px] rounded-full blur-[120px] opacity-[0.04] z-[1]"
+        style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+        animate={{
+          x: [0, 100, -50, 0],
+          y: [0, -80, 40, 0],
+          scale: [1, 1.2, 0.9, 1],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute w-[300px] h-[300px] rounded-full blur-[100px] opacity-[0.03] z-[1]"
+        style={{ background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' }}
+        animate={{
+          x: [0, -80, 60, 0],
+          y: [0, 60, -40, 0],
+          scale: [1, 0.8, 1.3, 1],
+        }}
+        transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+      />
 
       {/* Main content */}
       <div className="flex flex-col items-center justify-center h-full px-4 text-white relative z-10">
@@ -80,7 +218,7 @@ export function GridBackgroundDemo() {
                 key={index}
                 custom={index}
                 variants={letterAnimation}
-                className="px-[2px] md:px-1"
+                className="px-[2px] md:px-1 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-400 transition-all duration-300"
               >
                 {char}
               </motion.span>
@@ -97,7 +235,7 @@ export function GridBackgroundDemo() {
                 key={index}
                 custom={index + lettersLine1.length}
                 variants={letterAnimation}
-                className="px-[2px] md:px-1"
+                className="px-[2px] md:px-1 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-cyan-400 hover:to-blue-400 transition-all duration-300"
               >
                 {char}
               </motion.span>
@@ -105,12 +243,53 @@ export function GridBackgroundDemo() {
           </motion.div>
         </div>
 
+        {/* Typewriter Role */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className="mt-6 text-lg md:text-xl font-light"
+        >
+          I'm a <TypewriterText words={roles} />
+        </motion.div>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.6 }}
+          className="flex items-center gap-4 mt-8"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255,255,255,0.15)" }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-2.5 bg-white text-black rounded-lg text-sm font-medium flex items-center gap-2 transition-all duration-300"
+            onClick={() => {
+              const contactSection = document.getElementById('Contact');
+              if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            Get in Touch
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05, borderColor: "rgba(255,255,255,0.4)" }}
+            whileTap={{ scale: 0.95 }}
+            className="px-6 py-2.5 border border-white/20 text-white rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-white/5 transition-all duration-300"
+            onClick={() => {
+              const projectsSection = document.getElementById('Projects');
+              if (projectsSection) projectsSection.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            View Projects
+          </motion.button>
+        </motion.div>
+
         {/* Scroll Down Indicator */}
-        <motion.div 
+        <motion.div
           className="text-center mt-12"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
+          transition={{ delay: 2, duration: 0.8 }}
         >
           <p className="text-xs sm:text-sm text-gray-500 tracking-widest uppercase">
             Scroll to explore
@@ -118,7 +297,7 @@ export function GridBackgroundDemo() {
 
           <div className="w-[1px] h-8 bg-gradient-to-b from-gray-500 to-transparent mx-auto my-4" />
 
-          <motion.div 
+          <motion.div
             className="w-10 h-10 mx-auto rounded-full border border-gray-600 flex items-center justify-center cursor-pointer hover:border-gray-400 transition-colors duration-300"
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -133,7 +312,7 @@ export function GridBackgroundDemo() {
       </div>
 
       {/* Marquee */}
-      <div className="absolute bottom-0 right-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent py-6">
+      <div className="absolute bottom-0 right-0 w-full bg-gradient-to-t from-black via-black/80 to-transparent py-6 z-10">
         {/* Top Row */}
         <div className="marquee-wrapper">
           <div className="marquee-track">
