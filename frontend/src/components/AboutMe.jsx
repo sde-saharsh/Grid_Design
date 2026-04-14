@@ -119,7 +119,7 @@ const AboutMe = () => {
               className="relative aspect-square w-full max-w-[400px] rounded-2xl overflow-hidden border border-white/10 shadow-xl"
             >
               <img
-                src="./Profile/Profile2.jpeg"
+                src="./Profile/Profile.jpeg"
                 alt="Saharsh Khalokar"
                 className="w-full h-full object-cover"
               />
