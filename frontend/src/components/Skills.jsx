@@ -20,7 +20,7 @@ const skillsData = {
   Database: [
     { name: 'MongoDB', icon: '/logo/mongodb.png' },
     { name: 'PostgreSQL', icon: '/logo/postgresql.png' },
-    { name: 'Redis', icon: '/logo/oracle.png' },
+    { name: 'Oracle', icon: '/logo/oracle.png' },
   ],
   'Tools & Platforms': [
     { name: 'Git', icon: '/logo/git.png' },
