@@ -6,6 +6,7 @@ import Skills from './components/Skills';
 import Footer from './components/Footer';
 import Academic from './components/Academic';
 import Projects from './components/Projects';
+import CodingProfiles from './components/CodingProfiles';
 import LoadingScreen from './components/LoadingScreen';
 import CustomCursor from './components/CustomCursor';
 
@@ -15,7 +16,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 2200);
 
     return () => clearTimeout(timer);
   }, []);
@@ -27,31 +28,33 @@ const App = () => {
       ) : (
         <>
           <CustomCursor />
-          <div className="cursor-hover-target">
-            <Header />
-          </div>
+          <Header />
 
           <section id="Home">
             <GridBackgroundDemo />
           </section>
 
-          <section id="AboutMe" className="cursor-hover-target">
+          <section id="AboutMe">
             <AboutMe />
           </section>
 
-          <section id="Projects" className="cursor-hover-target">
+          <section id="Projects">
             <Projects />
           </section>
 
-          <section id="Tools" className="cursor-hover-target">
+          <section id="Tools">
             <Skills />
           </section>
 
-          <section id="Education" className="cursor-hover-target">
+          <section id="CodingProfiles">
+            <CodingProfiles />
+          </section>
+
+          <section id="Education">
             <Academic />
           </section>
 
-          <section id="Contact" className="cursor-hover-target">
+          <section id="Contact">
             <Footer />
           </section>
         </>

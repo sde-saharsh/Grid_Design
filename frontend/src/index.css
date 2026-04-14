@@ -1,9 +1,46 @@
 @import "tailwindcss";
 
-
-body{
-  background-color: black;
+* {
+  cursor: none !important;
 }
+
+@media (hover: none) and (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+}
+
+body {
+  background-color: black;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Selection styling */
+::selection {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
 .marquee-wrapper {
   overflow: hidden;
   width: 100%;
@@ -13,11 +50,11 @@ body{
   display: flex;
   gap: 3rem;
   white-space: nowrap;
-  animation: marquee 40s linear infinite; /* ⏱️ Adjusted speed */
+  animation: marquee 30s linear infinite;
 }
 
 .marquee-track.reverse {
-  animation: marqueeReverse 40s linear infinite; /* ⏱️ Adjusted speed */
+  animation: marqueeReverse 30s linear infinite;
 }
 
 @keyframes marquee {
@@ -37,6 +74,3 @@ body{
     transform: translateX(0%);
   }
 }
-
-  
-  

@@ -1,107 +1,151 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaBriefcase } from 'react-icons/fa';
+import { FaBriefcase, FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 const projects = [
   {
-    company: 'IPO Web App & REST API for Mobile App Integration',
-    role: '',
-    duration: 'Jun 2025 - Present',
+    title: 'NexusNav — Graph Routing & Transit Engine',
+    role: 'C++ Console Application',
+    duration: '2025',
+    github: 'https://github.com/sde-saharsh/Smart-Transport-Navigation-System',
+    live: '',
     points: [
-      'Built a production-level IPO analytics web application using React.js for frontend and Node.js/Express for backend.',
-      'Designed and deployed RESTful APIs to deliver IPO data to the Bluestock mobile app and partner platforms.',
-      'Managed dynamic data using PostgreSQL, ensuring scalable backend integration with seamless data access.',
-      'Contributed to full-stack web development and collaborated in Agile sprints using GitHub for version control.',
-      'Played a key role in real-time API integration for a platform used by over 5 lakh users in the fintech space.',
+      "Built a console-based transport & navigation system in C++ using OOP principles (Encapsulation, Inheritance, Runtime Polymorphism) across 12 cities and 20 highways.",
+      "Implemented Dijkstra's Algorithm (Min-Heap, O((V+E) log V)) and BFS for optimal routing; used a Trie for autocomplete and custom HashMap for O(1) fare retrieval.",
+      "Simulated dynamic road blocking with real-time alternate path recalculation and a Stack-based sliding window for route history.",
     ],
-    tech: ['ReactJS', 'NodeJS', 'Tailwind CSS', 'ExpressJS', 'JWT','PostgreSql','GitHub','Framer Motion'],
+    tech: ['C++', 'OOP', "Dijkstra's", 'BFS', 'Min-Heap', 'Trie', 'HashMap', 'Stack'],
   },
   {
-    company: 'Portfolio Website',
-    role: '',
-    duration: 'Jun 2025 ',
+    title: 'Distributed Rate Limiter',
+    role: 'Backend Microservice',
+    duration: '2025',
+    github: 'https://github.com/sde-saharsh/Distributed_Rate_Limiter',
+    live: '',
     points: [
-      'Developed an interactive personal portfolio using React and Tailwind CSS.',
-      'Integrated smooth animations with Framer Motion to enhance UX.',
-      'Designed a responsive layout compatible across all screen sizes.',
-      'Deployed using Vercel Pages with real-time updates via GitHub integration.',
+      'Built a Distributed Rate Limiter API using Node.js and Redis, implementing the Token Bucket algorithm to manage traffic spikes.',
+      'Optimized system performance by leveraging Redis TTL (Time-To-Live) for automatic counter resets, reducing database overhead in high-throughput scenarios.',
     ],
-    tech: ['ReactJS', 'Framer Motion', 'Tailwind CSS', 'GitHub', 'Vercel'],
+    tech: ['Node.js', 'Express.js', 'Redis', 'Token Bucket Algorithm'],
   },
   {
-    company: 'Food Recipe App',
-    role: 'Full Stack Web Application',
-    duration: 'Aug 2024 - Oct 2024',
+    title: 'Campus Mart — E-commerce Platform',
+    role: 'Full Stack MERN Application',
+    duration: '2025',
+    github: 'https://github.com/sde-saharsh/Campus_Mart',
+    live: 'https://campus-mart-three.vercel.app/',
     points: [
-      'Designed and developed a full-stack food recipe app with secure login and authentication.',
-      'Implemented CRUD functionality to add, edit, and delete personal recipes.',
-      'Used responsive design principles to ensure usability across all devices.',
-      'Integrated LocalStorage to preserve session-specific UI states and favorites.',
+      'Built a full-stack MERN marketplace enabling users to browse, search, and list products with category, price, and location filters.',
+      'Implemented real-time buyer-seller chat and notifications using Socket.io for low-latency communication.',
+      'Integrated JWT authentication and Role-Based Access Control (RBAC) for secure user/admin access.',
+      'Built REST APIs using Express.js and MongoDB Atlas, and integrated Cloudinary for scalable image uploads.',
     ],
-    tech: ['React', 'Node.js', 'Express.js', 'MongoDB'],
-  },  
+    tech: ['React', 'Tailwind', 'Node.js', 'Express.js', 'MongoDB', 'Socket.io', 'Docker', 'Cloudinary'],
+  },
 ];
 
 const Projects = () => {
   return (
     <section className="bg-black text-white py-20 px-4 md:px-10 relative overflow-hidden">
       {/* Header */}
-      <div className="text-center mb-16">
-        <p className="text-gray-400 uppercase tracking-widest">Projects</p>
-        <h2 className="text-4xl font-semibold mb-4">Featured Projects</h2>
-        <div className="w-76 h-[2px] bg-[#a6a6a6] mx-auto my-4"></div>
-        <p className="text-gray-400 max-w-xl mx-auto">
-          Timeline of key personal projects highlighting my skills and creativity.
+      <motion.div
+        className="text-center mb-16"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <p className="text-gray-500 uppercase tracking-[0.2em] text-xs mb-3">Projects</p>
+        <h2 className="text-3xl md:text-4xl font-semibold mb-4">Featured Projects</h2>
+        <div className="w-16 h-[2px] bg-gradient-to-r from-transparent via-gray-500 to-transparent mx-auto my-4" />
+        <p className="text-gray-400 max-w-xl mx-auto text-sm">
+          Production-grade projects showcasing my skills in algorithms, system design, and full-stack development.
         </p>
-      </div>
+      </motion.div>
 
       {/* Timeline Container */}
-      <div className="relative max-w-5xl mx-auto">
+      <div className="relative max-w-4xl mx-auto">
         {/* Vertical Line */}
-        <div className="absolute left-5 md:left-10 top-0 bottom-0 w-[2px] bg-gray-600 z-0"></div>
+        <div className="absolute left-5 md:left-8 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-gray-700 to-transparent z-0" />
 
         {/* Project Cards */}
-        <div className="flex flex-col gap-20 pl-16 md:pl-24 relative z-10">
+        <div className="flex flex-col gap-16 pl-14 md:pl-20 relative z-10">
           {projects.map((project, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, x: 100 }}
+              initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
               className="relative"
             >
-              {/* Briefcase Icon beside the timeline */}
-              <div className="absolute -left-16 md:-left-19 top-6">
-                <div className="w-10 h-10 rounded-full bg-white text-black border-2 border-gray-300 shadow flex items-center justify-center">
-                  <FaBriefcase className="text-md" />
+              {/* Timeline Icon */}
+              <div className="absolute -left-14 md:-left-16 top-6">
+                <div className="w-8 h-8 rounded-full bg-white/5 border border-white/20 shadow flex items-center justify-center backdrop-blur-sm">
+                  <FaBriefcase className="text-xs text-gray-400" />
                 </div>
               </div>
 
               {/* Project Card */}
-              <div className="bg-[#1a1a1a] border border-gray-700 p-6 rounded-xl shadow-lg w-full">
-                <h3 className="text-lg md:text-xl font-semibold">{project.company}</h3>
-                <p className="text-sm text-gray-400 mb-2">{project.role}</p>
+              <motion.div
+                whileHover={{
+                  borderColor: "rgba(255,255,255,0.15)",
+                  boxShadow: "0 8px 30px rgba(0,0,0,0.4)",
+                }}
+                transition={{ duration: 0.3 }}
+                className="bg-white/[0.02] border border-white/[0.06] p-6 rounded-xl w-full hover:bg-white/[0.04] transition-colors duration-300"
+              >
+                {/* Title + Links */}
+                <div className="flex items-start justify-between mb-1 gap-4">
+                  <h3 className="text-base md:text-lg font-semibold">{project.title}</h3>
+                  <div className="flex items-center gap-3 flex-shrink-0">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-500 hover:text-white transition-colors"
+                        title="View Source"
+                      >
+                        <FaGithub className="text-base" />
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-500 hover:text-white transition-colors"
+                        title="Live Demo"
+                      >
+                        <FaExternalLinkAlt className="text-sm" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 mb-1">{project.role}</p>
+                <p className="text-xs text-gray-600 mb-4">{project.duration}</p>
 
-                <ul className="list-disc list-inside text-gray-300 space-y-1 mb-4">
+                <ul className="space-y-2 mb-5">
                   {project.points.map((point, i) => (
-                    <li key={i}>{point}</li>
+                    <li key={i} className="text-sm text-gray-400 flex gap-2">
+                      <span className="text-gray-600 mt-1.5 text-[6px]">●</span>
+                      <span>{point}</span>
+                    </li>
                   ))}
                 </ul>
 
-                <div className="flex flex-wrap gap-2 mb-2">
+                <div className="flex flex-wrap gap-2">
                   {project.tech.map((tech, i) => (
                     <span
                       key={i}
-                      className="bg-gray-700 text-sm px-3 py-1 rounded-full text-white"
+                      className="bg-white/5 border border-white/10 text-xs px-3 py-1 rounded-full text-gray-400"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-
-                <p className="text-gray-500 text-sm">{project.duration}</p>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
