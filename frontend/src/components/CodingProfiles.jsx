@@ -163,7 +163,7 @@ const achievements = [
   { text: 'Ranked 395 globally in CodeChef Starters 227 and 734 globally in Starters 232', icon: '🌍' },
   { text: 'Winner, Walchand Imagine Cup — Annual tech competition by MLSC', icon: '🏅' },
   { text: 'GFG Campus Ambassador — Selected as GeeksforGeeks Campus Ambassador (2026)', icon: '🎓' },
-  { text: 'Technical Lead, MLSC — Managed technical operations for Microsoft Learn Students\' Club at WCE', icon: '💼' },
+  { text: 'Lead at WCE MLSC — Microsoft Learn Student Chapter, Walchand College of Engineering', icon: '�' },
 ];
 
 const CodingProfiles = () => {
